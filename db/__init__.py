@@ -7,7 +7,7 @@ from sqlalchemy import (
     ForeignKey,
     Text
 )
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, sessionmaker, scoped_session
 import os
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -39,6 +39,8 @@ class Post(Base):
     def __repr__(self) -> str:
         return f"<Post {self.title}>"
     
-
+session = scoped_session(
+    sessionmaker(bind=engine)
+)
     
     
