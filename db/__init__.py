@@ -15,6 +15,10 @@ connection_string = "sqlite:///" + os.path.join(BASE_DIR, 'posts.db')
 
 Base=declarative_base()
 engine = create_engine(connection_string, echo=True)
+session = scoped_session(
+    sessionmaker(bind=engine)
+)
+Base.query = session.query_property()
 
 
 
@@ -39,8 +43,5 @@ class Post(Base):
     def __repr__(self) -> str:
         return f"<Post {self.title}>"
     
-session = scoped_session(
-    sessionmaker(bind=engine)
-)
     
     
